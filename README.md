@@ -164,3 +164,10 @@ BEV 基于图像/Lidar/多模态数据的3D检测与分割任务
 3. 动手实现车道线检测、目标识别、可通行区域检测等算法，源代码实现；
 3. 对当前自动驾驶行业有更深的了解，抛砖引玉开展相关工作；
 4. 了解几种经典的感知算法模型，从实现原理到模型产出；
+
+# 知识星球
+
+前沿工作和技术及时解读，本项目中的相关内容的解答，涉及到的源代码分享。同行业的专精研小伙伴交流群，共享行业信息。
+<div align="center">
+  <img alt="知识星球：https://user-images.githubusercontent.com/29084184/204234701-729337a2-e2f8-42c2-a716-f7cb8ffdef2e.jpg" src="https://user-images.githubusercontent.com/29084184/204234701-729337a2-e2f8-42c2-a716-f7cb8ffdef2e.jpg" width="48%">
+</dev>
