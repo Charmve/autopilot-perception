@@ -329,6 +329,22 @@
       navigator.serviceWorker.register('pwa.js')
     }
   </script>
+	
+  <!-- 阅读更多 -->
+  <script>
+    {
+		"plugins": ["readmore"],
+		"pluginsConfig": {
+			"readmore":{
+				"blogId": "15702-1569305559839-744", <!-- [必选]OpenWrite 后台申请的博客唯一标识 -->
+				"name": "迈微AI研习社", <!-- 后台申请的博客名称 -->
+				"qrcode": "https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy9aTmRoV05pYjNJUkIzZk5ldWVGZEQ4YnZ4cXlzbXRtRktUTGdFSXZOMUdnTHhDNXV0Y1VBZVJ0T0lJa0hTZTVnVGowamVtZUVOQTJJMHhiU0xjQ3VrVVEvNjQw?x-oss-process=image/format,png", <!-- 后台申请的微信公众号二维码 -->
+				"keyword": "vip" <!-- [必选]OpenWrite 后台申请的微信公众号后台回复关键字 -->
+			}
+		}
+	}
+	<!-- ref https://snowdreams1006.github.io/gitbook-plugin-readmore/  -->
+  </script>
 
   <script src="//cdn.jsdelivr.net/npm/docsify-darklight-theme@latest/dist/index.min.js" type="text/javascript"></script>
 
