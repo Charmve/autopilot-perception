@@ -10,6 +10,9 @@
 
 <br>
 
+- 本地阅读：`docsify serve .`
+- 在线阅读：`https://charmve.github.io/autopilot-perception`
+
 # 课程大纲
 
 ## 零、感知系统整体概述 （5%）
