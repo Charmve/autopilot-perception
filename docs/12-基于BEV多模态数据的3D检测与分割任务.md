@@ -7,21 +7,21 @@
 
 1 PV（Perspective View）：透视视角
 
-![\[Image\]](https://img-blog.csdnimg.cn/82ca45a60ee44eae9fe5297d1fee8235.png)
+![\[Image\]](../images/82ca45a60ee44eae9fe5297d1fee8235.png)
 
 2 BEV （Bird Eye View）：鸟瞰视角
 
-![\[Image\]](https://img-blog.csdnimg.cn/66b5b97b068d43859eaea37599ab79b6.png)
+![\[Image\]](../images/66b5b97b068d43859eaea37599ab79b6.png)
 
 3 IPM (Inverse Perspective Mapping)：逆投影变换
 
 水平平面及固定相机外参假设，容易出现假设不成立的情况
 
-![\[Image\]](https://img-blog.csdnimg.cn/770cad2db8c04fc595d06792bfb6cedf.png)
+![\[Image\]](../images/770cad2db8c04fc595d06792bfb6cedf.png)
 
 Camera Frustum Space：相机的视锥空间
 
-<img src="https://img-blog.csdnimg.cn/510eda309c554b339ecd27533adc1243.png" width="45%" align="center">
+<img src="../images/510eda309c554b339ecd27533adc1243.png" width="45%" align="center">
 
 
 - 相机内参：与相机自身特性相关的参数，比如焦距、像素大小等
@@ -40,7 +40,7 @@ Camera Frustum Space：相机的视锥空间
 
 最直观的检测任务是2D目标检测，比如给出某张图片不同对象的语义标签及bounding box。从图中的信息要转化BEV上应该如何做呢？
 
-![\[Image\]](https://img-blog.csdnimg.cn/1af39e813286431caf173c7b1c6ba32c.png)
+![\[Image\]](../images/1af39e813286431caf173c7b1c6ba32c.png)
 
 如何从2D图片中检测出深度，是一个有意思的问题。常见的思路包括IPM、双目相机、Mono3D等。我司也上线过Mono3D的模型。
 
@@ -58,7 +58,8 @@ Camera Frustum Space：相机的视锥空间
 
 ## 基本方案
 BEV模型的挑战在于实现从PV到BEV的转换以及数据真值的获取（比如用无人机采、带lidar的多传感器采集作为真值等）。
-![\[Image\]](https://img-blog.csdnimg.cn/d260a41f6bf8416bb477540576b0dae7.png)
+
+![\[Image\]](../images/d260a41f6bf8416bb477540576b0dae7.png)
 
 ## 输入
 
@@ -68,20 +69,20 @@ BEV模型的挑战在于实现从PV到BEV的转换以及数据真值的获取（
 
 3D检测结果或者BEV图
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/ebe220939cde49088dd405ed1d17118c.png)
+![在这里插入图片描述](../images/ebe220939cde49088dd405ed1d17118c.png)
 
 
 ## 参考结构
 
 petr 纯视觉方案：
 
-![\[Image\]](https://img-blog.csdnimg.cn/4733ad0527cf436abf69b963f3dec1f6.png)
+![\[Image\]](../images/4733ad0527cf436abf69b963f3dec1f6.png)
 
 ## 数据集
 
 Waymo, Nuscenes, Argoverse均有用于BEV感知的数据集及相应的预测数据。
 
-![\[Image\]](https://img-blog.csdnimg.cn/1b3a4972b71142038c9959d66737c637.png)
+![\[Image\]](../images/1b3a4972b71142038c9959d66737c637.png)
 dataset format
 
 ## 评价指标
@@ -91,7 +92,7 @@ dataset format
 - NDS （Nuscenes Detection Score）
 	The nuScenes detection score (NDS) is a combination of several metrics: mAP, mATE (Average Translation Error), mASE (Average Scale Error), mAOE (Average Orientation Error), mAVE (Average Velocity Error) and mAAE (Average Attribute Error). The NDS is computed by using the weight sum of the above metrics. The weight of mAP is 5 and 1 for the rest.
 
-![\[Image\]](https://img-blog.csdnimg.cn/e0374378422f491aac2cd7a31ed918a7.png)
+![\[Image\]](../images/e0374378422f491aac2cd7a31ed918a7.png)
 
 ## 损失函数
 
@@ -101,7 +102,7 @@ dataset format
 
 The 2D-3D method is introduced by LSS [57], where it predicts depth distribution per grid on 2D feature, then “lift” the 2D feature per grid via the corresponding depth to voxel space, and perform downstream tasks following LiDAR-based methods.
 
-![\[Image\]](https://img-blog.csdnimg.cn/ec842648a7b24012ae548b0dfbe4bfc2.png)
+![\[Image\]](../images/ec842648a7b24012ae548b0dfbe4bfc2.png)
 
 
 ## 案例分析 BEVFormer 
@@ -114,7 +115,7 @@ The 2D-3D method is introduced by LSS [57], where it predicts depth distribution
 
 nuScenes自动驾驶数据集因其数据的质量、规模与难度都比之前数据集有大幅提升，而获得了很多研究者的关注。在nuScenes 3D object detection task上，目前前6名方案都是2022年3月进行的提交。作者提出的BEVFormer取得了48.1 mAP和56.9 NDS，两个指标均超越现有方法3个点以上，暂列第一。“低碳版”BEVFormer-pure仅使用ResNet-101与单尺度测试，取得了优于第二名（Swin-B、test-time aug）的mAP以及相同的NDS。具体榜单和Demo视频如下。
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/f837dbee4cdb43859e2b0ba2d6a641e1.png)
+![在这里插入图片描述](../images/f837dbee4cdb43859e2b0ba2d6a641e1.png)
 
 Table: BEVFormer 在nuScenes榜单上的排名（截至2022.3.31）
 

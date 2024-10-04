@@ -7,9 +7,9 @@
 那么，如何理解一张图片？根据后续任务的需要，有三个主要的层次。
 
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/9d8b5ea759f944f191e2234e10f3ee16.png)
-图像理解的三个层次
+![在这里插入图片描述](../images/9d8b5ea759f944f191e2234e10f3ee16.png)
 
+图像理解的三个层次
 
 一是分类（Classification），即是将图像结构化为某一类别的信息，用事先确定好的类别(string)或实例ID来描述图片。这一任务是最简单、最基础的图像理解任务，也是深度学习模型最先取得突破和实现大规模应用的任务。其中，ImageNet是最权威的评测集，每年的ILSVRC催生了大量的优秀深度网络结构，为其他任务提供了基础。在应用领域，人脸、场景的识别等都可以归为分类任务。
 
@@ -21,7 +21,7 @@
 
 ## 2. 目标检测经典工作回顾
 本文结构
-![在这里插入图片描述](https://img-blog.csdnimg.cn/b3704b7016ea44e990a10aba4997ff67.png)
+![在这里插入图片描述](../images/b3704b7016ea44e990a10aba4997ff67.png)
 
 ### 2.1 两阶段（2-stage）检测模型
 
@@ -34,7 +34,7 @@
 
 传统的计算机视觉方法常用精心设计的手工特征(如SIFT, HOG)描述图像，而深度学习的方法则倡导习得特征，从图像分类任务的经验来看，CNN网络自动习得的特征取得的效果已经超出了手工设计的特征。本篇在局部区域应用卷积网络，以发挥卷积网络学习高质量特征的能力。
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/9ecdf15ddf6a4ae4abc50efd5662a091.png)
+![在这里插入图片描述](../images/9ecdf15ddf6a4ae4abc50efd5662a091.png)
 
 R-CNN网络结构
 
@@ -44,9 +44,7 @@ R-CNN将检测抽象为两个过程，一是基于图片提出若干可能包含
 另外，文章中的两个做法值得注意。
 
 IoU的计算
-![在这里插入图片描述](https://img-blog.csdnimg.cn/bb61a2cc36e44f0182d3c593c93c1e9a.png)
-
-
+![在这里插入图片描述](../images/bb61a2cc36e44f0182d3c593c93c1e9a.png)
 
 
 **一是数据的准备**。输入CNN前，我们需要根据Ground Truth对提出的Region Proposal进行标记，这里使用的指标是IoU（Intersection over Union，交并比）。IoU计算了两个区域之交的面积跟它们之并的比，描述了两个区域的重合程度。
@@ -63,13 +61,14 @@ R-CNN的想法直接明了，即将检测任务转化为区域上的分类任务
 
 文章指出R-CNN耗时的原因是CNN是在每一个Proposal上单独进行的，没有共享计算，便提出将基础网络在图片整体上运行完毕后，再传入R-CNN子网络，共享了大部分计算，故有Fast之名。
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/14679f355581431aa4bc4cfe31c43e20.png)
+![在这里插入图片描述](../images/14679f355581431aa4bc4cfe31c43e20.png)
 
 Fast R-CNN网络结构
 
 上图是Fast R-CNN的架构。图片经过feature extractor得到feature map, 同时在原图上运行Selective Search算法并将RoI（Region of Interset，实为坐标组，可与Region Proposal混用）映射到到feature map上，再对每个RoI进行RoI Pooling操作便得到等长的feature vector，将这些得到的feature vector进行正负样本的整理（保持一定的正负样本比例），分batch传入并行的R-CNN子网络，同时进行分类和回归，并将两者的损失统一起来。
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/a5dca2e9779448d9948bc5aec295e205.gif#pic_center)
+![在这里插入图片描述](../images/a5dca2e9779448d9948bc5aec295e205.gif)
+
 RoI Pooling图示，来源：https://blog.deepsense.ai/region-of-interest-pooling-explained/
 
 RoI Pooling 是对输入R-CNN子网络的数据进行准备的关键操作。我们得到的区域常常有不同的大小，在映射到feature map上之后，会得到不同大小的特征张量。RoI Pooling先将RoI等分成目标个数的网格，再在每个网格上进行max pooling，就得到等长的RoI feature vector。
@@ -97,7 +96,7 @@ Faster R-CNN是2-stage方法的奠基性工作，提出的RPN网络取代Selecti
 
 本文的主要贡献是提出Regional Proposal Networks，替代之前的SS算法。RPN网络将Proposal这一任务建模为二分类（是否为物体）的问题。
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/deccf934ca4c48cf9936b447bd1680ee.png)
+![在这里插入图片描述](../images/deccf934ca4c48cf9936b447bd1680ee.png)
 Faster R-CNN网络结构
 
 第一步是在一个滑动窗口上生成不同大小和长宽比例的anchor box（如上图右边部分），取定IoU的阈值，按Ground Truth标定这些anchor box的正负。于是，传入RPN网络的样本数据被整理为anchor box（坐标）和每个anchor box是否有物体（二分类标签）。RPN网络将每个样本映射为一个概率值和四个坐标值，概率值反应这个anchor box有物体的概率，四个坐标值用于回归定义物体的位置。最后将二分类和坐标回归的损失统一起来，作为RPN网络的目标训练。
@@ -122,14 +121,14 @@ YOLO的主要优点：
 
 YOLO网络结构
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/caa253b9e8a64fd898ecf010b7e8b2ca.png)
+![在这里插入图片描述](../images/caa253b9e8a64fd898ecf010b7e8b2ca.png)
 
 **YOLO的工作流程如下：**
 
 1. 准备数据：将图片缩放，划分为等分的网格，每个网格按跟Ground Truth的IoU分配到所要预测的样本。
 
 2. 卷积网络：由GoogLeNet更改而来，每个网格对每个类别预测一个条件概率值，并在网格基础上生成B个box，每个box预测五个回归值，四个表征位置，第五个表征这个box含有物体（注意不是某一类物体）的概率和位置的准确程度（由IoU表示）。测试时，分数如下计算：
-![在这里插入图片描述](https://img-blog.csdnimg.cn/a26cb8142dd24c04a5011f5aeb8f22c0.png)
+![在这里插入图片描述](../images/a26cb8142dd24c04a5011f5aeb8f22c0.png)
 
 
 等式左边第一项由网格预测，后两项由每个box预测，以条件概率的方式得到每个box含有不同类别物体的分数。 因而，卷积网络共输出的预测值个数为S×S×(B×5+C)，其中S为网格数，B为每个网格生成box个数，C为类别数。
@@ -138,7 +137,7 @@ YOLO网络结构
 
 **损失函数的设计**
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/ac32182d232442f8997d84ccca56bdde.png)
+![在这里插入图片描述](../images/ac32182d232442f8997d84ccca56bdde.png)
 
 
 YOLO的损失函数分解，来源：https://zhuanlan.zhihu.com/p/24916786
@@ -150,7 +149,7 @@ YOLO提出了单阶段的新思路，相比两阶段方法，其速度优势明�
 #### 2.2.2 SSD: Single Shot Multibox Detector
 论文链接：[SSD: Single Shot Multibox Detector](https://arxiv.org/abs/1512.02325)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/e1db256ab73d4072b057448898acc293.png)
+![在这里插入图片描述](../images/e1db256ab73d4072b057448898acc293.png)
 SSD网络结构
 
 
@@ -165,7 +164,7 @@ SSD是单阶段模型早期的集大成者，达到跟接近两阶段模型精�
 
 ## 3 检测模型基本特点
 最后，我们对检测模型的基本特征做一个简单的归纳。
-![在这里插入图片描述](https://img-blog.csdnimg.cn/10010ef3275c459ca445c288a0b0d1d6.png)
+![在这里插入图片描述](../images/10010ef3275c459ca445c288a0b0d1d6.png)
 
 两阶段检测模型Pipeline，来源：https://tryolabs.com/blog/2018/01/18/faster-r-cnn-down-the-rabbit-hole-of-modern-object-detection/
 
@@ -173,7 +172,7 @@ SSD是单阶段模型早期的集大成者，达到跟接近两阶段模型精�
 检测模型整体上由基础网络（Backbone Network）和检测头部（Detection Head）构成。前者作为特征提取器，给出图像不同大小、不同抽象层次的表示；后者则依据这些表示和监督信息学习类别和位置关联。检测头部负责的类别预测和位置回归两个任务常常是并行进行的，构成多任务的损失进行联合训练。
 
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/12bf0eb26a9f481c8b7df010926c6b85.png)
+![在这里插入图片描述](../images/12bf0eb26a9f481c8b7df010926c6b85.png)
 检测模型头部并行的分支，来源同上
 
 相比单阶段，两阶段检测模型通常含有一个串行的头部结构，即完成前背景分类和回归后，把中间结果作为RCNN头部的输入再进行一次多分类和位置回归。这种设计带来了一些优点：

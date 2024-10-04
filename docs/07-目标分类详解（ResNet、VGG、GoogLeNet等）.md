@@ -4,7 +4,7 @@
 
 ## 1 网络分类
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/6de340f6376841caa9e125f64d0befef.png)
+![在这里插入图片描述](../images/6de340f6376841caa9e125f64d0befef.png)
 
 
 
